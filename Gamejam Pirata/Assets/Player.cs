@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         life = maxLife;
-        
+
         healthBar.UpdateHealthBar(life, maxLife);
     }
 
@@ -25,12 +25,27 @@ public class Player : MonoBehaviour
         life -= 1;
 
         healthBar.UpdateHealthBar(life, maxLife);
+        AnimAttack();
+        
+    }
 
+    public void LifeUpdateBig()
+    {
+        life -= 3;
+
+        healthBar.UpdateHealthBar(life, maxLife);
+        AnimAttack();
+        
+    }
+
+    
+    private void AnimAttack()
+    {
         gameObject.LeanScaleX(0.1f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(1f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+        gameObject.LeanScaleY(1f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
                 gameObject.LeanScaleX(1.5f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(1f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+                gameObject.LeanScaleY(1f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
                 gameObject.LeanScaleX(1f, 0.1f).setEaseInQuart();
                 gameObject.LeanScaleY(1f, 0.1f).setEaseInQuart();

@@ -3,6 +3,8 @@ using UnityEngine;
 public class Bow : MonoBehaviour
 {
     public GameObject arrow;
+
+    public GameObject bigArrow;
     public float lauchForce;
     public Transform shotPoint;
 
@@ -38,7 +40,7 @@ public class Bow : MonoBehaviour
 
     void Update()
     {
-        
+
         Vector2 bowPosition = transform.position;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = mousePosition - bowPosition;
@@ -47,6 +49,11 @@ public class Bow : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && isShotting == false)
         {
             Shoot();
+        }
+
+        if (Input.GetMouseButtonDown(1) && isShotting == false)
+        {
+            BigShoot();
         }
 
         for (int i = 0; i < numberOfPoints; i++)
@@ -62,6 +69,15 @@ public class Bow : MonoBehaviour
         isShotting = true;
 
         player.LifeUpdate();
+    }
+
+    void BigShoot()
+    {
+        GameObject newArrow = Instantiate(bigArrow, shotPoint.position, shotPoint.rotation);
+        newArrow.GetComponent<Rigidbody2D>().linearVelocity = transform.right * lauchForce;
+        isShotting = true;
+
+        player.LifeUpdateBig();
     }
 
     Vector2 PointPosition(float t)

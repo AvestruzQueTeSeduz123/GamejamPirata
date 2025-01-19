@@ -9,7 +9,9 @@ public class Arrow : MonoBehaviour
     public static event Action Shoot;
     Rigidbody2D rb;
     public bool hasHit;
-    [SerializeField]private int damage;
+    [SerializeField]private ArrowScrptObj arrowStats;
+
+    private int damage;
     private Bow bow;
     private CinemachineCamera cinemachineCamera;
 
@@ -26,6 +28,8 @@ public class Arrow : MonoBehaviour
         GameObject machineCamera = GameObject.FindWithTag("MachineCamera");
         cinemachineCamera = machineCamera.GetComponent<CinemachineCamera>();
         camControll = GameObject.FindWithTag("GameManager").GetComponent<CamControll>();
+
+        UpdateValues();
         
     }
 
@@ -68,6 +72,11 @@ public class Arrow : MonoBehaviour
 
         Destroy(gameObject);
         
+    }
+
+    private void UpdateValues()
+    {
+        damage = arrowStats.damage;
     }
 
     

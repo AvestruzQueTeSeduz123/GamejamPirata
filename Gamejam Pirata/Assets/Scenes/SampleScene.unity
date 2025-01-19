@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 5
-  maxLife: 5
+  maxLife: 10
   healthBar: {fileID: 344807692}
 --- !u!1 &881241612
 GameObject:
@@ -1404,6 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 5771904985292192686, guid: 457e4ddae68b64a4983dfeae8882b4ba, type: 3}
+  bigArrow: {fileID: 5512883541379342678, guid: 9cecd9d22e2ef2c43a900c7156f56d87, type: 3}
   lauchForce: 49.6
   shotPoint: {fileID: 665507375}
   point: {fileID: 7962204761880856063, guid: 2d4f1f96799bc4f49ad90d4838927198, type: 3}
