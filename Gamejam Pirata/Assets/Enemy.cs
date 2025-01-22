@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using Unity.Cinemachine;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -20,9 +22,12 @@ public class Enemy : MonoBehaviour
     private Vector3 targetPosition;
     private bool canWalk;
 
+    private CinemachineImpulseSource impulseSource;
+
 
     void Start()
     {
+            impulseSource = GetComponent<CinemachineImpulseSource>();
             originalMaterial = enemyRenderer.material;
             canWalk = false;
             UpdateStats();
@@ -48,6 +53,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         life -= damage;
+        CameraShakeManager.instance.CameraShake(impulseSource);
         if(life <= 0)
         {
             Arrow.Shoot -= Walk;
@@ -62,6 +68,7 @@ public class Enemy : MonoBehaviour
             
         flashRoutine = StartCoroutine(FlashWhite());
         DamageAnim();
+        
     }
 
     private IEnumerator FlashWhite()

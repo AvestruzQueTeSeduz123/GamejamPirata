@@ -16,6 +16,7 @@ public class Bow : MonoBehaviour
     Vector2 direction;
     public bool isShotting;
     Player player;
+    [SerializeField]private bool canShoot = false;
 
     [SerializeField] private GameObject pointsContainer; // Contêiner para os pontos
 
@@ -46,12 +47,12 @@ public class Bow : MonoBehaviour
         direction = mousePosition - bowPosition;
         transform.right = direction;
 
-        if (Input.GetMouseButtonDown(0) && isShotting == false)
+        if (Input.GetMouseButtonDown(0) && isShotting == false && canShoot == true)
         {
             Shoot();
         }
 
-        if (Input.GetMouseButtonDown(1) && isShotting == false)
+        if (Input.GetMouseButtonDown(1) && isShotting == false && canShoot == true)
         {
             BigShoot();
         }
@@ -64,11 +65,14 @@ public class Bow : MonoBehaviour
 
     void Shoot()
     {
-        GameObject newArrow = Instantiate(arrow, shotPoint.position, shotPoint.rotation);
+        if(canShoot == true)
+        {
+            GameObject newArrow = Instantiate(arrow, shotPoint.position, shotPoint.rotation);
         newArrow.GetComponent<Rigidbody2D>().linearVelocity = transform.right * lauchForce;
         isShotting = true;
 
         player.LifeUpdate();
+        }
     }
 
     void BigShoot()
@@ -84,5 +88,10 @@ public class Bow : MonoBehaviour
     {
         Vector2 position = (Vector2)shotPoint.position + (direction.normalized * lauchForce * t) + 0.5f * Physics2D.gravity * (t * t);
         return position;
+    }
+
+    public void CanShoot()
+    {
+        canShoot = true;
     }
 }

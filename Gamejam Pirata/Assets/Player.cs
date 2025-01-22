@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
     public int maxLife;
 
     [SerializeField]private FloatingHealthBar healthBar;
+    [SerializeField]private GameObject lostCanvas;
+    public bool lost = false;
+    [SerializeField]private TransitonAnim transition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,5 +54,19 @@ public class Player : MonoBehaviour
                 gameObject.LeanScaleY(1f, 0.1f).setEaseInQuart();
             });
             });
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemy = col.gameObject.GetComponent<Enemy>();
+                if (enemy != null)
+                    {
+                        lost = true;
+                        transition.StartTrasitionAnim();
+                    }
+        }
+        
     }
 }
