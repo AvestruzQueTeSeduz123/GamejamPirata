@@ -13,7 +13,9 @@ public class TutorialEnemy : MonoBehaviour
     
     [SerializeField] private PlayerDialogue playerDialogue;
     [SerializeField] private DialogueActivator dialogueActivator;
-    [SerializeField] private DialogueObject dialogueObject1;
+    [SerializeField] private DialogueObject[] dialogueObjects;
+    [SerializeField]private BowTutorial bowTutorial;
+    public int currentIndex = 0;
 
     // [SerializeField]private EnemyStatsScrpObj enemyStats;
     // private int life;
@@ -33,7 +35,7 @@ public class TutorialEnemy : MonoBehaviour
             // canWalk = false;
             // UpdateStats();
             
-            Arrow.Shoot += UpdateDialogue;
+            // ArrowTutorial.Shoot += UpdateDialogue;
     }
 
     void Update()
@@ -61,6 +63,7 @@ public class TutorialEnemy : MonoBehaviour
         //     Destroy(gameObject);
         //     return;
         // }
+        UpdateDialogue();
 
         if(flashRoutine != null)
         {
@@ -69,6 +72,7 @@ public class TutorialEnemy : MonoBehaviour
             
         flashRoutine = StartCoroutine(FlashWhite());
         DamageAnim();
+        bowTutorial.unlockedBigShoot = true;
         
     }
 
@@ -101,21 +105,35 @@ public class TutorialEnemy : MonoBehaviour
     {
         gameObject.transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
 
-            gameObject.LeanScaleX(0.7f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(1.2f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+            gameObject.LeanScaleX(1.7f, 0.1f).setEaseOutCirc();
+            gameObject.LeanScaleY(2.7f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
-                gameObject.LeanScaleX(1.2f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(0.7f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+                gameObject.LeanScaleX(2.7f, 0.1f).setEaseOutCirc();
+            gameObject.LeanScaleY(1.7f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
-                gameObject.LeanScaleX(1f, 0.1f).setEaseInQuart();
-                gameObject.LeanScaleY(1f, 0.1f).setEaseInQuart();
+                gameObject.LeanScaleX(2.3f, 0.1f).setEaseInQuart();
+                gameObject.LeanScaleY(2.3f, 0.1f).setEaseInQuart();
             });
             });
     }
 
     void UpdateDialogue()
     {
-        dialogueActivator.dialogueObject = dialogueObject1;
+        if (currentIndex < dialogueObjects.Length)
+    {
+        dialogueActivator.dialogueObject = dialogueObjects[currentIndex];
+        currentIndex++;
+    } else if(currentIndex >= dialogueObjects.Length)
+    {
+        return;
+    }
+    if(currentIndex == 1)
+    {
+        bowTutorial.unlockedLightShoot = false;
+    }
+    
         playerDialogue.StartCoroutine(playerDialogue.ActiveText());
     }
+
+    
 }

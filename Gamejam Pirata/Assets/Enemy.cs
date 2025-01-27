@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Material flashMaterial;
     private Material originalMaterial;
 
-    public float flashDuration = 0.1f; // Duration of the white flash
+    public float flashDuration = 0.1f;
+    public float size; // Duration of the white flash
     private Coroutine flashRoutine;
 
     [SerializeField]private EnemyStatsScrpObj enemyStats;
@@ -24,10 +25,18 @@ public class Enemy : MonoBehaviour
 
     private CinemachineImpulseSource impulseSource;
 
+    [SerializeField]private bool isSummoner;
+    private int summonTime;
+    [SerializeField]private GameObject flashEnemy;
+    [SerializeField]private GameManager gameManager;
+
+    private Animator anim;
 
     void Start()
     {
             impulseSource = GetComponent<CinemachineImpulseSource>();
+            gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+            anim  = GetComponent<Animator>();
             originalMaterial = enemyRenderer.material;
             canWalk = false;
             UpdateStats();
@@ -40,12 +49,15 @@ public class Enemy : MonoBehaviour
         if (canWalk == true)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            anim.SetBool("IsWalking", true);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
+                anim.SetBool("IsWalking", false);
                 canWalk = false;
             }
         }
+
 
         
     }
@@ -53,6 +65,13 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         life -= damage;
+        if(damage >= 2)
+        {
+            impulseSource.DefaultVelocity.y = -2;
+        } else {
+            impulseSource.DefaultVelocity.y = -1;
+        }
+        
         CameraShakeManager.instance.CameraShake(impulseSource);
         if(life <= 0)
         {
@@ -82,10 +101,15 @@ public class Enemy : MonoBehaviour
     public void Walk()
     {
         if (this == null) return;
-        
-        targetPosition = gameObject.transform.position;
+        if(isSummoner  == false)
+        {
+            targetPosition = gameObject.transform.position;
         targetPosition.x -= howManyWillWalk;
         canWalk = true;
+        } else {
+            Summon();
+        }
+        
     }
 
     private void UpdateStats()
@@ -100,15 +124,35 @@ public class Enemy : MonoBehaviour
     {
         gameObject.transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
 
-            gameObject.LeanScaleX(0.7f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(1.2f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+            gameObject.LeanScaleX(size - 0.5f, 0.1f).setEaseOutCirc();
+            gameObject.LeanScaleY(size + 0.3f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
-                gameObject.LeanScaleX(1.2f, 0.1f).setEaseOutCirc();
-            gameObject.LeanScaleY(0.7f, 0.1f).setEaseOutCirc().setOnComplete(() =>
+                gameObject.LeanScaleX(size + 0.3f, 0.1f).setEaseOutCirc();
+            gameObject.LeanScaleY(size - 0.5f, 0.1f).setEaseOutCirc().setOnComplete(() =>
             {
-                gameObject.LeanScaleX(1f, 0.1f).setEaseInQuart();
-                gameObject.LeanScaleY(1f, 0.1f).setEaseInQuart();
+                gameObject.LeanScaleX(size, 0.1f).setEaseInQuart();
+                gameObject.LeanScaleY(size, 0.1f).setEaseInQuart();
             });
             });
+    }
+
+    private void Summon()
+    {
+        summonTime++;
+        Transform summonPoint = null;
+            foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+                {
+                    if (child.CompareTag("SpawnEnemy"))
+                    {
+                        summonPoint = child;
+                        break;
+                    }
+                }
+                if(summonTime == 2)
+                {
+                    Instantiate(flashEnemy, summonPoint.position, Quaternion.identity);
+                    gameManager.CheckEnemies();
+                    summonTime = 0;
+                }
     }
 }

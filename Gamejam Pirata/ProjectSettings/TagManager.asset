@@ -10,6 +10,9 @@ TagManager:
   - Enemy
   - GameManager
   - PlayerText
+  - Ground
+  - SpawnEnemy
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Enemy
   - 
   - Arrow
   - 

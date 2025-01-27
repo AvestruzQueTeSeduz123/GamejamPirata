@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class Bow : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class Bow : MonoBehaviour
     public GameObject bigArrow;
     public float lauchForce;
     public Transform shotPoint;
+    
 
     public GameObject point;
     GameObject[] points;
@@ -16,7 +19,9 @@ public class Bow : MonoBehaviour
     Vector2 direction;
     public bool isShotting;
     Player player;
-    [SerializeField]private bool canShoot = false;
+    GameManager gameManager;
+    public bool canShoot = false;
+    [SerializeField]private bool unlockedBigShoot = true;
 
     [SerializeField] private GameObject pointsContainer; // Contêiner para os pontos
 
@@ -37,6 +42,7 @@ public class Bow : MonoBehaviour
 
         isShotting = false;
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -47,12 +53,12 @@ public class Bow : MonoBehaviour
         direction = mousePosition - bowPosition;
         transform.right = direction;
 
-        if (Input.GetMouseButtonDown(0) && isShotting == false && canShoot == true)
+        if (Input.GetMouseButtonDown(0) && isShotting == false && canShoot == true && player.lost == false && gameManager.win == false)
         {
             Shoot();
         }
 
-        if (Input.GetMouseButtonDown(1) && isShotting == false && canShoot == true)
+        if (Input.GetMouseButtonDown(1) && isShotting == false && canShoot == true && unlockedBigShoot == true && player.lost == false && gameManager.win == false)
         {
             BigShoot();
         }
@@ -93,5 +99,11 @@ public class Bow : MonoBehaviour
     public void CanShoot()
     {
         canShoot = true;
+    }
+
+    public IEnumerator ColldownShoot()
+    {
+        yield return new WaitForSeconds(1f);
+        isShotting = false;
     }
 }

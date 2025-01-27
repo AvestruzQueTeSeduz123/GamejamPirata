@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class DialogueUI : MonoBehaviour
     private TypewriteEffect typewriteEffect;
     [SerializeField]private CanvasGroup canvasGroupDescription;
     [SerializeField]private GameObject characterImage;
+    public bool isWriting = false;
+    [SerializeField]private TutorialEnemy enemy;
+    
+    
 
     private void Start()
     {
@@ -28,11 +33,12 @@ public class DialogueUI : MonoBehaviour
     {
         dialogueBox.SetActive(true);
         animationPass.SetActive(false);
+        isWriting = true;
         
 
         dialogueBox.LeanScaleX( 1f, 0.2f).setEaseOutCirc().setOnComplete(() =>
         {
-           characterImage.LeanScaleY( 1f, 0.3f).setEaseOutQuart().setOnComplete(() =>
+           characterImage.LeanScaleY( 1.597278f, 0.3f).setEaseOutQuart().setOnComplete(() =>
         {
            StartCoroutine(StepThroughDialogue(dialogueObject));
         });
@@ -99,7 +105,13 @@ public class DialogueUI : MonoBehaviour
             dialogueBox.LeanScaleX( 0.32f, 0.3f).setEaseOutCirc();
             canvasGroupDescription.LeanAlpha(0f, 0.15f).setEaseInQuart().setOnComplete(() =>
         {
+            isWriting = false;
             dialogueBox.SetActive(false);
+
+            if(enemy.currentIndex == 2)
+            {
+                SceneManager.LoadScene("SampleScene");
+            }
             // Ensures that FadeIn can be called next
         });
         

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   dialogue:
-  - Helo i am the ice cream and i will help you here
-  - First with the take a little of your snow and thorough in me
-  - '*whispers* left button of mouse'
+  - Hello, Snowman, i am the ice cream and can you help us?
+  - The sun is getting stronger, and this is causing trouble in your town.
+  - Can you defeat him?
+  - "And don\u2019t be afraid, I will help you."
+  - First, take a little of your snow and throw it at me.
+  - '*whispers* left mouse button.'
+  - This will cause damage.
   - 

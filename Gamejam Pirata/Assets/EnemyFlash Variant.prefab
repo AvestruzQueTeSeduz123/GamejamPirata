@@ -9,24 +9,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 77.67536
+      value: 37.551342
       objectReference: {fileID: 0}
     - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.4043696
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
       propertyPath: m_LocalPosition.z
@@ -60,94 +48,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 780895013774943565, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2537817022291247405, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
       propertyPath: m_Name
       value: EnemyFlash Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 3132165966232496033, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8160051
-      objectReference: {fileID: 0}
+    - target: {fileID: 4256844107733753781, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0be20cc366dd06442aa103e87b6da48e, type: 3}
     - target: {fileID: 5957374692219848749, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
       propertyPath: enemyStats
       value: 
       objectReference: {fileID: 11400000, guid: 210191ab267f6fe49b84169a70568645, type: 2}
     - target: {fileID: 5957374692219848749, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      propertyPath: enemyRenderer
+      propertyPath: flashEnemy
       value: 
-      objectReference: {fileID: 2300952880953726013}
+      objectReference: {fileID: 675513665461564525}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2537817022291247405, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1652796181357383192}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
---- !u!1 &1702698275761533617 stripped
+--- !u!1 &675513665461564525 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2537817022291247405, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
-  m_PrefabInstance: {fileID: 3790078349971534748}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1652796181357383192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702698275761533617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ImpulseDefinition:
-    ImpulseChannel: 1
-    ImpulseShape: 2
-    CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    ImpulseDuration: 0.2
-    ImpulseType: 0
-    DissipationRate: 0.25
-    RawSignal: {fileID: 0}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    RepeatMode: 0
-    Randomize: 1
-    TimeEnvelope:
-      AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      AttackTime: 0
-      SustainTime: 0.2
-      DecayTime: 0.7
-      ScaleWithImpact: 1
-      HoldForever: 0
-    ImpactRadius: 100
-    DirectionMode: 0
-    DissipationMode: 2
-    DissipationDistance: 100
-    PropagationSpeed: 343
-  DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!212 &2300952880953726013 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3132165966232496033, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4451518184967735281, guid: 87f0dd68ae05be5448f2adab8e8e5f76, type: 3}
   m_PrefabInstance: {fileID: 3790078349971534748}
   m_PrefabAsset: {fileID: 0}

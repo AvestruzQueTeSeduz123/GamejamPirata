@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   life: 3
-  speed: 5.62
-  howManyWillWalk: 8
+  speed: 12
+  howManyWillWalk: 15

@@ -19,6 +19,7 @@ public class Arrow : MonoBehaviour
     [SerializeField]private GameObject snowParticle;
     [SerializeField]private GameObject smokeParticle;
     CamControll camControll;
+    private CinemachineImpulseSource impulseSource;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class Arrow : MonoBehaviour
         GameObject machineCamera = GameObject.FindWithTag("MachineCamera");
         cinemachineCamera = machineCamera.GetComponent<CinemachineCamera>();
         camControll = GameObject.FindWithTag("GameManager").GetComponent<CamControll>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
 
         UpdateValues();
         
@@ -49,7 +51,7 @@ public class Arrow : MonoBehaviour
         hasHit = true;
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
-        bow.isShotting = false;
+        bow.StartCoroutine(bow.ColldownShoot());
 
         camControll.StartCoroutine(camControll.BackCamera());
         Instantiate(snowParticle, gameObject.transform.position, Quaternion.identity);
@@ -64,8 +66,23 @@ public class Arrow : MonoBehaviour
                     }
                     else
                     {
+                        Orbs enemyOrbs = col.gameObject.GetComponent<Orbs>();
+                            if (enemyOrbs != null)
+                            {
+                            enemyOrbs.TakeDamage(damage);
+                            }
                         Debug.LogWarning("Objeto com tag 'Enemy' não possui o componente 'Enemy'.");
                     }
+        }
+
+        if(col.gameObject.CompareTag("Ground"))
+        {
+            CameraShakeManager.instance.CameraShake(impulseSource);
+        }
+
+        if(col.gameObject.CompareTag("Boss"))
+        {
+            CameraShakeManager.instance.CameraShake(impulseSource);
         }
         Shoot?.Invoke();
 

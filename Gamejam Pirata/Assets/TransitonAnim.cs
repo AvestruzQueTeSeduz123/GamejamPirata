@@ -21,7 +21,8 @@ public class TransitonAnim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        upBar.SetActive(false);
+        downBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,6 +33,9 @@ public class TransitonAnim : MonoBehaviour
 
     public void StartTrasitionAnim()
     {
+        upBar.SetActive(true);
+        downBar.SetActive(true);
+        
         upBar.LeanMoveY(center.position.y, timeToStart).setEaseOutQuart();
         downBar.LeanMoveY(center.position.y, timeToStart).setEaseOutQuart().setOnComplete(() =>
         {

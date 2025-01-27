@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Ola
   m_EditorClassIdentifier: 
   dialogue:
-  - oal ola
+  - Good!
+  - Do you see that it takes off a little of your snow?
+  - '*Whispers, the bar.'
+  - "If this gets to zero, you die. But don\u2019t think too much about it."
+  - Now use the right mouse button to throw a lot more snow.
+  - This deals more damage, but uses more of your snow.
   - 

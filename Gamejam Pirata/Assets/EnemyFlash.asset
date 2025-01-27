@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyFlash
   m_EditorClassIdentifier: 
   life: 1
-  speed: 18
+  speed: 23
   howManyWillWalk: 25

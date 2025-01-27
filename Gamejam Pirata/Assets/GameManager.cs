@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject[] enemies;
     [SerializeField]private GameObject nextPhase;
     public bool win = false;
-    [SerializeField]private TransitonAnim transition;
+    [SerializeField]private GameObject transition;
+    [SerializeField]private CanvasGroup transitionCanvasGroup;
+    [SerializeField]private Bow bow;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        CheckEnemies();
     }
 
     // Update is called once per frame
@@ -32,7 +34,25 @@ public class GameManager : MonoBehaviour
         if (allEnemiesDestroyed)
         {
             win = true;
-            transition.StartTrasitionAnim();
+            TransitionAnim();
+            bow.canShoot = false;
         }
+    }
+
+    private void TransitionAnim()
+    {
+        transition.SetActive(true);
+         LeanTween.alphaCanvas(transitionCanvasGroup, 1f, 0.1f)
+                 .setEaseInQuart()
+                 .setOnComplete(() =>
+                 {
+                     // Ativa o objeto 'transition' após a transição
+                     transition.SetActive(true);
+                 });
+    }
+
+    public void CheckEnemies()
+    {
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 }
